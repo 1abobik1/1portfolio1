@@ -267,19 +267,7 @@
   
   .contact-details:hover {
     transform: translateY(8px);
-  }
- 
-  footer {
-    font-weight: 300;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 2rem;
-    background: var(--main-gray);
-    border-top: 4px solid var(--main-red);
-    
-    height: 100%;
- 
-  }
+  } 
   
   footer > p {
     margin: 2rem;
