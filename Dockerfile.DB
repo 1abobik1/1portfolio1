@@ -1,0 +1,4 @@
+# Используем образ PostgreSQL
+FROM postgres:latest
+
+COPY DB/init.sql DB/docker-entrypoint-initdb.d/

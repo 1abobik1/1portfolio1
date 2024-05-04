@@ -8,11 +8,13 @@ const port = 9000;
 // Подключение к базе данных PostgreSQL
 const pool = new Pool({
   user: 'postgres',
-  host: 'localhost',
+  host: 'database',
   database: 'Feedback',
   password: 'Zopa_kek12',
-  port: 5432, 
+  port: 5432,
 });
+
+console.log("create db");
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,15 +30,13 @@ app.use(bodyParser.json());
 app.post('/submit', async (req, res) => {
   try {
     const { firstName, lastName, email, phoneNumber, message } = req.body;
-    const client = await pool.connect();
     const query = `
       INSERT INTO Feedback (firstName, lastName, email, phoneNumber, message)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
     const values = [firstName, lastName, email, phoneNumber, message];
-    const result = await client.query(query, values);
-    client.release();
+    const result = await pool.query(query, values);
     console.log('Data inserted:', result.rows[0]);
     res.status(201).json({ message: 'Data inserted successfully!' });
   } catch (error) {
@@ -44,6 +44,7 @@ app.post('/submit', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while inserting data.' });
   }
 });
+
 
 // Запуск сервера на указанном порту
 app.listen(port, () => {
