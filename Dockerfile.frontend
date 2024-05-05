@@ -1,0 +1,10 @@
+FROM nginx:latest
+
+# Копируем статические файлы в NGINX
+COPY frontend /usr/share/nginx/html
+
+# Открываем порт 80
+EXPOSE 80
+
+# Команда для запуска NGINX
+CMD ["nginx", "-g", "daemon off;"]
