@@ -16,11 +16,8 @@ services:
       dockerfile: Dockerfile.DB
     image: postgres
     environment:
-      POSTGRES_DB: Feedback
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Zopa_kek12
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      -./DB:/docker-entrypoint-initdb.d
+      - .:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
