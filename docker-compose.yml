@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/StaticFiles
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+
   backend:
     build:
       context: .
@@ -11,13 +24,14 @@ services:
       - database
 
   database:
-    build:
-      context: .
-      dockerfile: Dockerfile.DB
     image: postgres
     environment:
+      POSTGRES_DB: Feedback
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Zopa_kek12
       PGDATA: "/var/lib/postgresql/data/pgdata"
-    volumes:
-      - .:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+    command: [ "postgres", "-c", "log_statement=all" ]
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

@@ -31,7 +31,7 @@ app.post('/submit', async (req, res) => {
   try {
     const { firstName, lastName, email, phoneNumber, message } = req.body;
     const query = `
-      INSERT INTO Feedback (firstName, lastName, email, phoneNumber, message)
+      INSERT INTO FeedbackTable (firstName, lastName, email, phoneNumber, message)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
