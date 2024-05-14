@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./frontend:/usr/share/nginx/StaticFiles
+      - ./frontend:/usr/share/nginx/html/
   frontend:
     build:
       context: .
